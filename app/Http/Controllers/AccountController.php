@@ -19,22 +19,24 @@ class AccountController extends Controller
         return Account::all();
     }
 
-    public function login(Request $request)
+   public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',
+            'captcha' => 'required|captcha', // Check against Laravel session
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-    
+
         $account = Account::where('email', $request->email)->first();
-    
+
         if (!$account || !Hash::check($request->password, $account->password)) {
             return response()->json(['message' => 'Invalid email or password'], 401);
         }
+
         return response()->json([
             'message' => 'Login successful',
             'account' => $account,

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalorieController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\XpHistoryController;
+use Mews\Captcha\Captcha;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,7 +27,11 @@ Route::post('/accounts/login', [AccountController::class, 'login']);
 
 // Custom route for verification view, expects 'account' in request input as JSON
 Route::get('/accounts/verification', [AccountController::class, 'verificationShow']);
-
+Route::get('/captcha', function () {
+    return response()->json([
+        'captcha' => captcha_src('flat'), // You can also use 'default', 'inverse', etc.
+    ]);
+});
 // Calories routes
 Route::get('/calories', [CalorieController::class, 'index']);
 Route::post('/calories', [CalorieController::class, 'store']);
@@ -42,3 +48,9 @@ Route::post('/workouts', [WorkoutController::class, 'store']);
 Route::get('/workouts/{id}', [WorkoutController::class, 'show']);
 Route::put('/workouts/{id}', [WorkoutController::class, 'update']);
 Route::delete('/workouts/{id}', [WorkoutController::class, 'destroy']);
+// routes/api.php
+Route::get('/xp-history', [XpHistoryController::class, 'index']);
+Route::post('/xp-history', [XpHistoryController::class, 'store']);
+Route::get('/xp-history/{id}', [XpHistoryController::class, 'show']);
+Route::put('/xp-history/{id}', [XpHistoryController::class, 'update']);
+Route::delete('/xp-history/{id}', [XpHistoryController::class, 'destroy']);
