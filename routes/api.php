@@ -55,3 +55,10 @@ Route::post('/xp-history', [XpHistoryController::class, 'store']);
 Route::get('/xp-history/{id}', [XpHistoryController::class, 'show']);
 Route::put('/xp-history/{id}', [XpHistoryController::class, 'update']);
 Route::delete('/xp-history/{id}', [XpHistoryController::class, 'destroy']);
+
+// routes/api.php
+Route::get('/xp-history', [XpHistoryController::class, 'index']);
+Route::post('/xp-history', [XpHistoryController::class, 'store']);
+Route::get('/xp-history/{id}', [XpHistoryController::class, 'show']);
+Route::put('/xp-history/{id}', [XpHistoryController::class, 'update']);
+Route::delete('/xp-history/{id}', [XpHistoryController::class, 'destroy']);
