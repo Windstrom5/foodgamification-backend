@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\XpHistoryController;
 use Mews\Captcha\Captcha;
+use Illuminate\Support\Facades\URL;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,12 +25,12 @@ Route::post('/accounts', [AccountController::class, 'store']);
 Route::put('/accounts/{id}', [AccountController::class, 'update']);
 Route::delete('/accounts/{id}', [AccountController::class, 'destroy']);
 Route::post('/accounts/login', [AccountController::class, 'login']);
+Route::get('/accounts/verify/{id}', [AccountController::class, 'verify'])->name('account.verify');
 
 // Custom route for verification view, expects 'account' in request input as JSON
-Route::get('/accounts/verification', [AccountController::class, 'verificationShow']);
 Route::get('/captcha', function () {
     return response()->json([
-        'captcha' => captcha_src('flat'), // You can also use 'default', 'inverse', etc.
+        'captcha' => URL::to(captcha_src('flat')),
     ]);
 });
 // Calories routes

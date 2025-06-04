@@ -9,3 +9,4 @@ use App\Http\Controllers\CalorieController;
 Route::get('/', function () {
     return view('403');
 });
+Route::get('verification-show', [AccountController::class, 'verificationShow'])->name('verification.show');
